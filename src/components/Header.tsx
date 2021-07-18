@@ -30,6 +30,7 @@ const Header: React.FC<{}> = () => {
           className="app__headerButtons__login"
           onClick={async () => {
             await fetch(`https://quote-gnr.herokuapp.com/api/auth/logout`, {
+              credentials: "same-origin",
               headers: {
                 "Access-Control-Expose-Headers": "Set-Cookie",
               },

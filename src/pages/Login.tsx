@@ -21,9 +21,6 @@ const Login: React.FC<{}> = () => {
                 method: "POST",
                 credentials: "same-origin",
                 headers: {
-                  "Access-Control-Allow-Origin":
-                    "https://quote-generator-drab-nine.vercel.app/",
-                  "Access-Control-Expose-Headers": "Set-Cookie",
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   "Access-Control-Allow-Credentials": "true",

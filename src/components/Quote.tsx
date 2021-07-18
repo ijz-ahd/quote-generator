@@ -25,14 +25,13 @@ const Quote: React.FC<IProps> = ({ quotes }) => {
         `https://quote-gnr.herokuapp.com/api/favorites/add`,
         {
           method: "POST",
-          credentials: "include",
+          credentials: "same-origin",
           headers: {
             "Access-Control-Allow-Origin":
               "https://quote-generator-drab-nine.vercel.app/",
             "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Expose-Headers": "Set-Cookie",
           },
           body: JSON.stringify(randomQuote),
         }

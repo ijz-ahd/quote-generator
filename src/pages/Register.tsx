@@ -24,14 +24,11 @@ const Register: React.FC<{}> = () => {
               `https://quote-gnr.herokuapp.com/api/auth/register`,
               {
                 method: "POST",
-                credentials: "include",
+                credentials: "same-origin",
                 headers: {
-                  "Access-Control-Allow-Origin":
-                    "https://quote-generator-drab-nine.vercel.app/",
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   "Access-Control-Allow-Credentials": "true",
-                  "Access-Control-Expose-Headers": "Set-Cookie",
                 },
                 body: JSON.stringify(values),
               }

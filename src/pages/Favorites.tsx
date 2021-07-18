@@ -17,13 +17,10 @@ const Favorites: React.FC<{}> = () => {
         `https://quote-gnr.herokuapp.com/api/favorites/`,
         {
           method: "GET",
-          credentials: "include",
-          headers: {
-            "Access-Control-Allow-Origin":
-              "https://quote-generator-drab-nine.vercel.app/",
-            "Access-Control-Expose-Headers": "Set-Cookie",
+          credentials: "same-origin",
+          headers: new Headers({
             "Access-Control-Allow-Credentials": "true",
-          },
+          }),
         }
       )
         .then((res) => res.json())
