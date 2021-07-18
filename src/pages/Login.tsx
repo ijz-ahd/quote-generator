@@ -21,7 +21,7 @@ const Login: React.FC<{}> = () => {
               `https://quote-gnr.herokuapp.com/api/auth/login`,
               {
                 method: "POST",
-                credentials: "include",
+                credentials: "same-origin",
                 headers: {
                   "Access-Control-Allow-Origin":
                     "https://quote-generator-drab-nine.vercel.app/",
