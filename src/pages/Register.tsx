@@ -31,6 +31,7 @@ const Register: React.FC<{}> = () => {
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Expose-Headers": "Set-Cookie",
                 },
                 body: JSON.stringify(values),
               }

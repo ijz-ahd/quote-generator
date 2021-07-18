@@ -23,7 +23,9 @@ const Login: React.FC<{}> = () => {
                 method: "POST",
                 credentials: "include",
                 headers: {
-                  "Access-Control-Allow-Origin": "http://localhost:3000",
+                  "Access-Control-Allow-Origin":
+                    "https://quote-generator-drab-nine.vercel.app/",
+                  "Access-Control-Expose-Headers": "Set-Cookie",
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   "Access-Control-Allow-Credentials": "true",

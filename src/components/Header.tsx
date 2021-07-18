@@ -29,11 +29,13 @@ const Header: React.FC<{}> = () => {
         <p
           className="app__headerButtons__login"
           onClick={async () => {
-            await fetch(`https://quote-gnr.herokuapp.com/api/auth/logout`).then(
-              () => {
-                localStorage.removeItem("token");
-              }
-            );
+            await fetch(`https://quote-gnr.herokuapp.com/api/auth/logout`, {
+              headers: {
+                "Access-Control-Expose-Headers": "Set-Cookie",
+              },
+            }).then(() => {
+              localStorage.removeItem("token");
+            });
             window.location.reload();
             history.push("/");
           }}

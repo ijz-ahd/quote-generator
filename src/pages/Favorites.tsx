@@ -21,6 +21,7 @@ const Favorites: React.FC<{}> = () => {
           headers: {
             "Access-Control-Allow-Origin":
               "https://quote-generator-drab-nine.vercel.app/",
+            "Access-Control-Expose-Headers": "Set-Cookie",
             "Access-Control-Allow-Credentials": "true",
           },
         }
@@ -61,6 +62,7 @@ const Favorites: React.FC<{}> = () => {
                       credentials: "include",
                       headers: {
                         "Access-Control-Allow-Credentials": "true",
+                        "Access-Control-Expose-Headers": "Set-Cookie",
                       },
                     }
                   ).then((res) => {
