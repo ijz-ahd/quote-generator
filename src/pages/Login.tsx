@@ -1,11 +1,9 @@
 import React from "react";
 import { Form, Formik, Field } from "formik";
-import { useHistory } from "react-router";
 import { useState } from "react";
 
 const Login: React.FC<{}> = () => {
   const [error, setError] = useState("");
-  const history = useHistory();
 
   return (
     <div className="register">
@@ -39,8 +37,7 @@ const Login: React.FC<{}> = () => {
               return;
             }
             localStorage.setItem("token", response?.token);
-            history.push("/");
-            window.location.reload();
+            window.location.href = "/";
           }}
         >
           {() => (
