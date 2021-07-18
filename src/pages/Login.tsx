@@ -33,7 +33,7 @@ const Login: React.FC<{}> = () => {
             ).then((res) => res.json());
             console.log(response.error);
             if (response.error) {
-              setError(response.error || response.error.message);
+              setError(response.error);
               return;
             }
             localStorage.setItem("token", response?.token);

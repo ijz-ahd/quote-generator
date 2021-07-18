@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Formik, Field } from "formik";
 import { useHistory } from "react-router";
 
 const Register: React.FC<{}> = () => {
+  const [error, setError] = useState() as any;
   const history = useHistory();
 
   return (
     <div className="register">
       <div className="register__container">
-        <h3>Become a member today!</h3>
+        {error ? (
+          <p>{error?.email || error?.password || error?.username}</p>
+        ) : (
+          <h3>Become a member today!</h3>
+        )}
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
           onSubmit={async (values) => {
@@ -21,7 +26,8 @@ const Register: React.FC<{}> = () => {
                 method: "POST",
                 credentials: "include",
                 headers: {
-                  "Access-Control-Allow-Origin": "http://localhost:3000",
+                  "Access-Control-Allow-Origin":
+                    "https://quote-generator-drab-nine.vercel.app/",
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   "Access-Control-Allow-Credentials": "true",
@@ -30,7 +36,9 @@ const Register: React.FC<{}> = () => {
               }
             ).then((data) => data.json());
             if (response?.error) {
-              alert(response?.error);
+              console.log(response.error);
+              setError(response?.error);
+              return;
             }
             history.push("/login");
           }}

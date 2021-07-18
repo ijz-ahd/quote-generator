@@ -16,14 +16,18 @@ const Favorites: React.FC<{}> = () => {
       const response: any = await fetch(
         `https://quote-gnr.herokuapp.com/api/favorites/`,
         {
+          method: "GET",
           credentials: "include",
           headers: {
+            "Access-Control-Allow-Origin":
+              "https://quote-generator-drab-nine.vercel.app/",
             "Access-Control-Allow-Credentials": "true",
           },
         }
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setFavorite(data);
         });
 
@@ -36,40 +40,46 @@ const Favorites: React.FC<{}> = () => {
     fetchFavorites();
   }, []);
 
+  console.log(favorite);
+
   return (
     <div className="favorites">
       <h3>Your favorite quote's</h3>
-      {favorite.map((fav, index) => (
-        <div key={index} className="favorites__container">
-          <h4>" {fav.title} "</h4>
-          <div className="favorites__containerBottom">
-            <button
-              onClick={async () => {
-                const response: any = await fetch(
-                  `https://quote-gnr.herokuapp.com/api/favorites/delete/${fav.id}`,
-                  {
-                    method: "DELETE",
-                    credentials: "include",
-                    headers: {
-                      "Access-Control-Allow-Credentials": "true",
-                    },
-                  }
-                ).then((res) => {
-                  console.log(res);
-                  window.location.reload();
-                });
+      {!favorite ? (
+        <></>
+      ) : (
+        favorite?.map((fav, index) => (
+          <div key={index} className="favorites__container">
+            <h4>" {fav.title} "</h4>
+            <div className="favorites__containerBottom">
+              <button
+                onClick={async () => {
+                  const response: any = await fetch(
+                    `https://quote-gnr.herokuapp.com/api/favorites/delete/${fav.id}`,
+                    {
+                      method: "DELETE",
+                      credentials: "include",
+                      headers: {
+                        "Access-Control-Allow-Credentials": "true",
+                      },
+                    }
+                  ).then((res) => {
+                    console.log(res);
+                    window.location.reload();
+                  });
 
-                if (response?.error) {
-                  alert(response?.error);
-                }
-              }}
-            >
-              remove
-            </button>
-            <p>- {fav.author}</p>
+                  if (response?.error) {
+                    alert(response?.error);
+                  }
+                }}
+              >
+                remove
+              </button>
+              <p>- {fav.author}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
       <br />
     </div>
   );

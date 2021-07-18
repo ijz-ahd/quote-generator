@@ -51,7 +51,7 @@ function App() {
         </Route>
 
         <Route exact path="/favorites">
-          <Favorites />
+          {localStorage.getItem("token") ? <Favorites /> : <Redirect to="/" />}
         </Route>
 
         {/* app body  */}
