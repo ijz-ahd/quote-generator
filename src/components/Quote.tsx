@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { IState as IProps } from "../App";
+import axios from "../axios";
 
 interface IState {
   quote: {
@@ -21,21 +22,18 @@ const Quote: React.FC<IProps> = ({ quotes }) => {
 
   const addToFavorite = async () => {
     if (localStorage.getItem("token")) {
-      const response: any = await fetch(
-        `https://quote-gnr.herokuapp.com/api/favorites/add`,
-        {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Access-Control-Allow-Origin":
-              "https://quote-generator-drab-nine.vercel.app/",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Credentials": "true",
-          },
-          body: JSON.stringify(randomQuote),
-        }
-      );
+      const response: any = await axios(`/api/favorites/add`, {
+        method: "post",
+        headers: {
+          "Access-Control-Allow-Origin":
+            "https://quote-generator-drab-nine.vercel.app/",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        withCredentials: true,
+        data: JSON.stringify(randomQuote),
+      });
       if (response?.error) {
         alert(response?.error);
       }

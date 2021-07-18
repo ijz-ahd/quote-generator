@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Formik, Field } from "formik";
 import { useHistory } from "react-router";
+import axios from "../axios";
 
 const Register: React.FC<{}> = () => {
   const [error, setError] = useState() as any;
@@ -20,19 +21,16 @@ const Register: React.FC<{}> = () => {
             if (!values.email || !values.username || !values.password) {
               alert("values are required");
             }
-            const response: any = await fetch(
-              `https://quote-gnr.herokuapp.com/api/auth/register`,
-              {
-                method: "POST",
-                credentials: "same-origin",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  "Access-Control-Allow-Credentials": "true",
-                },
-                body: JSON.stringify(values),
-              }
-            ).then((data) => data.json());
+            const response: any = await axios(`/api/auth/register`, {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Credentials": "true",
+              },
+              data: JSON.stringify(values),
+              withCredentials: true,
+            }).then((res) => res.data);
             if (response?.error) {
               console.log(response.error);
               setError(response?.error);

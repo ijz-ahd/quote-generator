@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { useHistory } from "react-router";
+import axios from "../axios";
 
 const Header: React.FC<{}> = () => {
   const history = useHistory();
@@ -29,11 +30,11 @@ const Header: React.FC<{}> = () => {
         <p
           className="app__headerButtons__login"
           onClick={async () => {
-            await fetch(`https://quote-gnr.herokuapp.com/api/auth/logout`, {
-              credentials: "same-origin",
+            await axios(`/api/auth/logout`, {
               headers: {
                 "Access-Control-Expose-Headers": "Set-Cookie",
               },
+              withCredentials: true,
             }).then(() => {
               localStorage.removeItem("token");
             });

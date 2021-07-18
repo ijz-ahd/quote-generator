@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "../axios";
 
 interface IState {
   quotes: {
@@ -13,17 +14,14 @@ const Favorites: React.FC<{}> = () => {
 
   useEffect(() => {
     async function fetchFavorites() {
-      const response: any = await fetch(
-        `https://quote-gnr.herokuapp.com/api/favorites/`,
-        {
-          method: "GET",
-          credentials: "same-origin",
-          headers: new Headers({
-            "Access-Control-Allow-Credentials": "true",
-          }),
-        }
-      )
-        .then((res) => res.json())
+      const response: any = await axios(`/api/favorites/`, {
+        method: "get",
+        headers: new Headers({
+          "Access-Control-Allow-Credentials": "true",
+        }),
+        withCredentials: true,
+      })
+        .then((res) => res.data)
         .then((data) => {
           console.log(data);
           setFavorite(data);
@@ -52,15 +50,15 @@ const Favorites: React.FC<{}> = () => {
             <div className="favorites__containerBottom">
               <button
                 onClick={async () => {
-                  const response: any = await fetch(
-                    `https://quote-gnr.herokuapp.com/api/favorites/delete/${fav.id}`,
+                  const response: any = await axios(
+                    `/api/favorites/delete/${fav.id}`,
                     {
-                      method: "DELETE",
-                      credentials: "include",
+                      method: "delete",
                       headers: {
                         "Access-Control-Allow-Credentials": "true",
                         "Access-Control-Expose-Headers": "Set-Cookie",
                       },
+                      withCredentials: true,
                     }
                   ).then((res) => {
                     console.log(res);
